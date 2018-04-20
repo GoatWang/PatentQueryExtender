@@ -1,0 +1,8 @@
+venv
+*.pyc
+staticfiles
+.env
+.vscode
+__pycache__
+media/downloaded/*
+pwd.json

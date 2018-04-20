@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)https://getbootstrap.com/docs/4.1/examples/checkout/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link rel="icon" href="https://getbootstrap.com/favicon.ico"> -->
+
+    <title>專利關鍵字延伸器</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <style>
+      textarea{
+        height:120px;
+        width:100%;
+      }
+
+      #extend_btn{
+        float: right;
+        margin-top: 5px;
+      }
+
+      .term_btn{
+        margin: 2px 2px 2px 2px;
+      }
+    </style>
+  </head>
+
+  <body class="bg-light">
+    <div class="container">
+      <div class="py-5 text-center">
+        <!-- <img class="d-block mx-auto mb-4" src="./index_files/bootstrap-solid.svg" alt="" width="72" height="72"> -->
+        <h2>專利關鍵字延伸器</h2>
+        <p class="lead">尋找關鍵字，不再是你心中的痛！</p>
+      </div>
+
+      <div class="row">
+        <!-- <div class="col-md-4 order-md-2 mb-4">
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Your cart</span>
+            <span class="badge badge-secondary badge-pill">3</span>
+          </h4>
+          <ul class="list-group mb-3">
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <h6 class="my-0">Product name</h6>
+                <small class="text-muted">Brief description</small>
+              </div>
+              <span class="text-muted">$12</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <h6 class="my-0">Second product</h6>
+                <small class="text-muted">Brief description</small>
+              </div>
+              <span class="text-muted">$8</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <h6 class="my-0">Third item</h6>
+                <small class="text-muted">Brief description</small>
+              </div>
+              <span class="text-muted">$5</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between bg-light">
+              <div class="text-success">
+                <h6 class="my-0">Promo code</h6>
+                <small>EXAMPLECODE</small>
+              </div>
+              <span class="text-success">-$5</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Total (USD)</span>
+              <strong>$20</strong>
+            </li>
+          </ul>
+
+          <form class="card p-2">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Promo code">
+              <div class="input-group-append">
+                <button type="submit" class="btn btn-secondary">Redeem</button>
+              </div>
+            </div>
+          </form>
+        </div> -->
+        <div class="offset-md-1 col-md-5">
+          <h4 class="mb-3">關鍵字</h4>
+          <p>一行延伸一組(10個字)，行內用逗號分隔</p>
+          <form class="needs-validation" novalidate="">
+            <textarea type="text" class="form-control" id="keywords_textarea"></textarea>
+            <button id="extend_btn" class="btn btn-sm btn-primary">延伸關鍵字</a>
+          </form>
+        </div>
+        <div class="col-md-5">
+          <h4>延伸關鍵字</h4>
+          <p>點擊以新增左側查詢關鍵字</p>          
+          <div id="term_btns_div">
+            <button id="clonable_btn" type="button" class="term_btn btn btn-sm btn-light" hidden="hidden"></button>
+          </div>
+        </div>
+      </div>
+      <div class="offset-md-1 col-md-10 offset-md-1">
+        <hr class="mb-4">
+        <button id="redirect_to_patent_retrieval_sys_btn" class="btn btn-primary btn-lg btn-block">至「中華民國專利資訊檢索系統」檢索</a>
+      </div>
+
+      <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">© 2017-2018 QueryExtender</p>
+        <!-- <ul class="list-inline">
+          <li class="list-inline-item"><a href="https://getbootstrap.com/docs/4.1/examples/checkout/#">Privacy</a></li>
+          <li class="list-inline-item"><a href="https://getbootstrap.com/docs/4.1/examples/checkout/#">Terms</a></li>
+          <li class="list-inline-item"><a href="https://getbootstrap.com/docs/4.1/examples/checkout/#">Support</a></li>
+        </ul> -->
+      </footer>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script>
+      function term_btn_click(e){
+        e.preventDefault()
+        terms_str = $("#keywords_textarea").val() + "\n" + $(this).text()
+        $("#keywords_textarea").val(terms_str)
+      }
+
+
+      $("#extend_btn").click(function(e){
+        e.preventDefault()
+        if($("#keywords_textarea").val() != ""){
+          $("body").css("cursor", "progress");
+          url = '{% url "extender:search" %}'
+          post_data = {terms_str: $("#keywords_textarea").val()}
+          function callback(data){
+            $("body").css("cursor", "default");            
+            $("#term_btns_div button").not(":hidden").each(function(){
+              $(this).remove()
+            })
+  
+            related_terms = data.related_terms
+            btn_clss = ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"]
+            $(related_terms).each(function(idx, term){
+  //            $btn = $('<button type="button" class="term_btn btn btn-sm btn-' + btn_clss[idx%8] + '">' + term + '</button>')
+              //$btn = $('<button type="button" class="term_btn btn btn-sm btn-light">' + term + '</button>')
+              $btn = $("#clonable_btn").clone()
+              $btn.text(term)
+              $btn.removeAttr('hidden')
+              $btn.click(term_btn_click)
+              $("#term_btns_div").append($btn)
+            })
+  
+          }
+          $.ajax({type: 'POST', url: url, data: post_data, dataType: 'json', success: callback });
+        }else{
+          alert("請輸入關鍵字!")
+        }
+      })
+      
+      var placeholder = '細胞,組織,白血球\n化學,PVC\n靈芝,幹細胞';
+      $('#keywords_textarea').val(placeholder);
+      $('#keywords_textarea').focus(function() {
+          if ($(this).val() == placeholder) {
+              $(this).val('');
+          }
+      });
+
+      $('#keywords_textarea').blur(function() {
+          if ($(this).val() == '') {
+              $(this).val(placeholder);
+          }
+      });
+
+      $("#redirect_to_patent_retrieval_sys_btn").click(function(){
+        window.open("http://twpat7.tipo.gov.tw/tipotwoc/tipotwkm?.b83300460000000000000000000000000E100A0000000000057553adb")
+      })
+
+    </script>
+  
+
+</body></html>

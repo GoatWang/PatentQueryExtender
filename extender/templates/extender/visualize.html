@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+<body>
+<style type="text/css">
+svg {
+  width:100%;
+  height: 450px;
+  margin-top: 50px;
+}
+</style>
+
+<div class='container'>
+    <div class='row'>
+        <svg id="svg"></svg>
+
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+    function zoom() {
+        svg.attr("transform", d3.event.transform)
+        d3.selectAll("text").attr('font-size', (20 / (d3.event.transform.k*1.5)).toString() + "px")
+        console.log(d3.select("text").attr('font-size'))
+    }
+    //function drag() {
+    //    d3.event.sourceEvent.stopPropagation(); // silence other listeners
+    //    dragMove(this, obj, 'points')
+    //}
+      
+    var svg = d3.select("#svg")
+                .call(d3.zoom().on("zoom", zoom))
+                //.call(d3.drag().on("drag", drag))
+
+    var vocabs = {{ vocabs|safe }}
+    var vectors = {{ vectors }}
+    var classes = {{ classes|safe }}
+    var svg_width = parseInt(svg.style("width"));
+    var svg_height = parseInt(svg.style("height"));
+    var padding = 0;  // Padding around canvas, i.e. replaces the 0 of scale
+
+    var gdots =  svg.selectAll("g.dot")
+    .data(vectors)
+    .enter().append('g');
+
+    x_min = d3.min(vectors, function(d) {
+        return d[0];  // get the input domain as first column of array
+    })
+    x_max = d3.max(vectors, function(d) {
+        return d[0];  // get the input domain as first column of array
+    })
+    y_min = d3.min(vectors, function(d) {
+        return d[1];  // get the input domain as first column of array
+    })
+    y_max = d3.max(vectors, function(d) {
+        return d[1];  // get the input domain as first column of array
+    })
+
+    var xScale = d3.scaleLinear()
+        .domain([x_min, x_max])
+        .range([20, svg_width-20])  // set the output range
+        //.nice();  // Make decimals round up nicely
+
+    var yScale = d3.scaleLinear()
+        .domain([y_min, y_max])
+        .range([20, svg_height-20])  // set the output range
+        //.nice();  // Make decimals round up nicely
+
+    gdots.append("circle")
+            .attr("class", "dot")
+            .attr("r", 0)
+            .attr("cx", function (d) {
+                return xScale(d[0]);
+            })
+            .attr("cy", function (d) {
+                return yScale(d[1]);
+            })
+            .style("fill", '#50C2E3');
+
+    gdots.append("text").text(function(d, i){
+        return vocabs[i];
+    })
+    .attr("x", function (d) {
+        return xScale(d[0]);
+    })
+    .attr("y", function (d) {
+        return yScale(d[1]);
+    })
+    .attr("fill", function(d, i){
+        c = classes[i]
+        if(c == '0'){ return '#FF7744'}
+        if(c == '1'){ return '#33FFFF'}
+        if(c == '2'){ return '#99FF33'}
+        if(c == '3'){ return '#9955FF'}
+    })
+    //.style("fill","red")
+    .attr("font-size", "20")
+    //.on("mouseover", function(){d3.select(this).attr("font-size", "10")})
+    //.on("mouseout", function(){d3.select(this).attr("font-size", "1")});
+    
+</script>
+</body>
