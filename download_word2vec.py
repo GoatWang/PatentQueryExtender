@@ -4,6 +4,8 @@ from gensim.models import Word2Vec
 import json
 
 MEDIA_ROOT = 'media'
+print(os.listdir())
+print(os.listdir('media'))
 # with open('pwd.json') as f:
 #     pwd_data = json.load(f)
 pwd_data = {
