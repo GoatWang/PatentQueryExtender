@@ -122,10 +122,10 @@ STATIC_URL = '/static/'
 
 ENV_PATH = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 MEDIA_ROOT = os.path.join(ENV_PATH, 'media')  ## user upload to this place
+print(MEDIA_ROOT)
 
-import django_heroku 
-django_heroku.settings(locals())
-
+# import django_heroku 
+# django_heroku.settings(locals())
 
 # import json
 # if 'AWS_ACCESS_KEY_ID' in os.environ:
