@@ -34,7 +34,7 @@ except:
 
 print(os.listdir(os.path.join(MEDIA_ROOT, 'downloaded')))
 
-from subprocess import call
-call(["gunicorn", "patent_query_extedter.wsgi"])
+# from subprocess import call
+# call(["gunicorn", "patent_query_extedter.wsgi"])
 
 # web: gunicorn patent_query_extender.wsgi
