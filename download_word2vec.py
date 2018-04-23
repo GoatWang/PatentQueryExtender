@@ -20,8 +20,8 @@ if 'downloaded' not in os.listdir(MEDIA_ROOT):
     os.mkdir(os.path.join(MEDIA_ROOT, 'downloaded'))
 
 # file_names = ["patent_non_stops_top100.zh.model", "patent_non_stops_top100.zh.model.syn1neg.npy", "patent_non_stops_top100.zh.model.wv.syn0.npy"]
-file_names = ["patent_non_stops_top50.zh.model", "patent_non_stops_top50.zh.model.syn1neg.npy", "patent_non_stops_top50.zh.model.wv.syn0.npy"]
-# file_names = ["patent_non_stops_top100.zh.model"]
+# file_names = ["patent_non_stops_top50.zh.model", "patent_non_stops_top50.zh.model.syn1neg.npy", "patent_non_stops_top50.zh.model.wv.syn0.npy"]
+file_names = ["patent_non_stops_top20.zh.model", "patent_non_stops_top20.zh.model.syn1neg.npy", "patent_non_stops_top20.zh.model.wv.syn0.npy"]
 try:
     for n in file_names:
         if n not in os.listdir(os.path.join(MEDIA_ROOT, 'downloaded')): 
