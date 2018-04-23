@@ -25,7 +25,9 @@ SECRET_KEY = '=5+^z+kr*1vhm81d(z9#j*1lhq9$4&*+w+*dyylfrhpqoez(qt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'http://patent-query-extender-dev.us-west-2.elasticbeanstalk.com',
+]
 
 
 # Application definition
