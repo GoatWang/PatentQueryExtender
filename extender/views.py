@@ -18,7 +18,7 @@ def download_gensim_model():
     # model_path = os.path.join(settings.MEDIA_ROOT, 'downloaded', 'patent_non_stops_top50.zh.model') 
     try:
         print(os.listdir(settings.MEDIA_ROOT))
-        print(os.path.join(settings.MEDIA_ROOT, 'downloaded'))
+        print(os.listdir(os.path.join(settings.MEDIA_ROOT, 'downloaded')))
         print("------------------")
         print("------------------")
         print("------------------")
