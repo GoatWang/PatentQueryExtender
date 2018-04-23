@@ -23,9 +23,9 @@ def download_gensim_model():
         print("------------------")
         print("------------------")
         print("------------------")
-        # model_path = os.path.join(settings.MEDIA_ROOT, 'downloaded', 'patent_non_stops_top100.zh.model') 
+        model_path = os.path.join(settings.MEDIA_ROOT, 'downloaded', 'patent_non_stops_top100.zh.model') 
         # model_path = os.path.join(settings.MEDIA_ROOT, 'downloaded', 'patent_non_stops_top50.zh.model') 
-        model_path = os.path.join(settings.MEDIA_ROOT, 'downloaded', 'patent_non_stops_top20.zh.model') 
+        # model_path = os.path.join(settings.MEDIA_ROOT, 'downloaded', 'patent_non_stops_top20.zh.model') 
         model = Word2Vec.load(model_path)
         print("patent_non_stops_top100")
     except:
