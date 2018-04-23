@@ -28,7 +28,12 @@ try:
             s3 = boto3.resource('s3')
             s3.meta.client.download_file(S3_BUCKET, "patent/" + n, os.path.join(MEDIA_ROOT, 'downloaded', n))
     print("download success!")
+    print("download success!")
+    print("download success!")
+    print("download success!")
 except:
+    print('download fail!')
+    print('download fail!')
     print('download fail!')
 
 
