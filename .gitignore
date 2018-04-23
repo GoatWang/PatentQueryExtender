@@ -1,5 +1,5 @@
 pwd.json
-
+*.log
 venv
 *.pyc
 staticfiles
