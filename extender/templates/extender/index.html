@@ -187,10 +187,6 @@
 
           function callback(data){
             $("body").css("cursor", "default");            
-            $("#term_btns_div button").not(":hidden").each(function(){
-              $(this).remove()
-            })
-
 
             $("#retrieval_result_title_div").html("")
             $("#retrieval_result_title_div").append($("<h3>").text("標題檢索結果"))
