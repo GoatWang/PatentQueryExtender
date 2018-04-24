@@ -101,6 +101,23 @@
           </div>
         </div>
       </div>
+
+      <div class="offset-md-1 col-md-10 offset-md-1">
+        <hr class="mb-4">
+        <button id="retrieve_relevant_titles_btn" class="btn btn-primary btn-lg btn-block">檢索相關專利標題</a>
+      </div>
+
+      <div id="retrieval_result_title_div" class="py-5 text-center">
+
+      </div>
+      <div class="col-md-12" id='tiles_table_div'>
+    
+      </div>
+
+
+
+
+      
       <div class="offset-md-1 col-md-10 offset-md-1">
         <hr class="mb-4">
         <button id="redirect_to_patent_retrieval_sys_btn" class="btn btn-primary btn-lg btn-block">至「中華民國專利資訊檢索系統」檢索</a>
@@ -134,7 +151,7 @@
         e.preventDefault()
         if($("#keywords_textarea").val() != ""){
           $("body").css("cursor", "progress");
-          url = '{% url "extender:search" %}'
+          url = '{% url "extender:search_relevant_terms" %}'
           post_data = {terms_str: $("#keywords_textarea").val()}
           function callback(data){
             $("body").css("cursor", "default");            
@@ -160,6 +177,64 @@
           alert("請輸入關鍵字!")
         }
       })
+
+      $("#retrieve_relevant_titles_btn").click(function(e){
+        e.preventDefault()
+        if($("#keywords_textarea").val() != ""){
+          $("body").css("cursor", "progress");
+          url = '{% url "extender:search_relevant_titles" %}'
+          post_data = {terms_str: $("#keywords_textarea").val()}
+
+          function callback(data){
+            $("body").css("cursor", "default");            
+            $("#term_btns_div button").not(":hidden").each(function(){
+              $(this).remove()
+            })
+
+
+            $("#retrieval_result_title_div").html("")
+            $("#retrieval_result_title_div").append($("<h4>").text("標題檢索結果"))
+
+
+            $table = $("<table>").addClass("table").addClass("table-striped")
+            $thead = $("<thead>")
+              $tr = $("<tr>")
+            $(["#", "名稱", "專利編號", "公告/公開日", "申請號"]).each(function(idx, header){
+              $tr.append($("<th>").text(header).attr('scope', 'col'))
+            })
+            $thead.append($tr)
+            $table.append($thead)
+
+            $tbody = $("<tbody>")
+            $(data.data).each(function(idx, title_dict){
+              $tr = $("<tr>")
+              name = ""
+              if(title_dict.english_title != null){
+                name = title_dict.chinese_title + "\n" + title_dict.english_title
+              }else{
+                name = title_dict.chinese_title
+              }
+              $tr.append($("<th>").text(idx.toString()).attr('scope', 'row'))
+              //$tr.append($("<td>").append($("<a>").attr("target", "_blank").attr('href', 'http://twpat6.tipo.gov.tw/tipotwoc/tipotwkm?!!FR_'+title_dict.publication_reference_doc_number).text(name)))
+              $tr.append($("<td>").text(name))
+              $tr.append($("<td>").append($("<a>").attr("target", "_blank").attr('href', 'http://twpat6.tipo.gov.tw/tipotwoc/tipotwkm?!!FR_'+title_dict.publication_reference_doc_number).text(title_dict.publication_reference_doc_number)))
+              //$tr.append($("<td>").text(title_dict.publication_reference_doc_number))
+              $tr.append($("<td>").text(title_dict.publication_reference_date))
+              $tr.append($("<td>").text(title_dict.application_reference_doc_number))
+              $tbody.append($tr)
+              $table.append($tbody)
+
+              $("#tiles_table_div").html('')              
+              $("#tiles_table_div").append($table)
+            })
+          }
+          $.ajax({type: 'POST', url: url, data: post_data, dataType: 'json', success: callback });
+        }else{
+          alert("請輸入關鍵字!")
+        }
+      })
+
+      
       
       var placeholder = '細胞,組織,白血球\n化學,PVC\n靈芝,幹細胞';
       $('#keywords_textarea').val(placeholder);

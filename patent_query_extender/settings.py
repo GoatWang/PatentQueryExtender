@@ -26,6 +26,7 @@ SECRET_KEY = '=5+^z+kr*1vhm81d(z9#j*1lhq9$4&*+w+*dyylfrhpqoez(qt'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    '127.0.0.1',
     'localhost',
     'patent-query-extender-dev.us-west-2.elasticbeanstalk.com',
 ]
@@ -125,7 +126,6 @@ STATIC_URL = '/static/'
 
 ENV_PATH = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 MEDIA_ROOT = os.path.join(ENV_PATH, 'media')  ## user upload to this place
-print(MEDIA_ROOT)
 
 # import django_heroku 
 # django_heroku.settings(locals())
@@ -144,3 +144,22 @@ print(MEDIA_ROOT)
 # AWS_ACCESS_KEY_ID = pwd_data['AWS_ACCESS_KEY_ID']
 # AWS_SECRET_ACCESS_KEY = pwd_data['AWS_SECRET_ACCESS_KEY']
 # S3_BUCKET = pwd_data['S3_BUCKET']
+
+
+
+import json
+if 'AWS_ACCESS_KEY_ID' in os.environ:
+    pwd_data = {
+        # "AWS_ACCESS_KEY_ID":os.environ['AWS_ACCESS_KEY_ID'],
+        # "AWS_SECRET_ACCESS_KEY":os.environ['AWS_SECRET_ACCESS_KEY'],
+        # "S3_BUCKET":os.environ['S3_BUCKET'],
+        "MongoUrl":os.environ['MongoUrl']
+    }
+else:
+    with open(os.path.join(BASE_DIR, 'pwd.json')) as f:
+        pwd_data = json.load(f)
+    
+# AWS_ACCESS_KEY_ID = pwd_data['AWS_ACCESS_KEY_ID']
+# AWS_SECRET_ACCESS_KEY = pwd_data['AWS_SECRET_ACCESS_KEY']
+# S3_BUCKET = pwd_data['S3_BUCKET']
+MONGO_URL = pwd_data['MongoUrl']

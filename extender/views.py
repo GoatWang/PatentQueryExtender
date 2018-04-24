@@ -8,38 +8,61 @@ import os
 from gensim.models import Word2Vec
 import gensim
 import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
 
 from random import sample
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 
+from pymongo import MongoClient
+conn = MongoClient(settings.MONGO_URL)
+db = conn.patent
+
+
+import jieba
+jieba.set_dictionary(os.path.join(settings.MEDIA_ROOT, 'dict.txt.big'))
+# with open(os.path.join(settings.MEDIA_ROOT, 'stopwords.txt'),'r', encoding='utf-8') as f:
+#     stopwords = f.read().split('\n')
+
 
 def download_gensim_model():
     # model_path = os.path.join(settings.MEDIA_ROOT, 'downloaded', 'patent_non_stops_top50.zh.model') 
     try:
-        print(os.listdir(settings.MEDIA_ROOT))
-        print(os.listdir(os.path.join(settings.MEDIA_ROOT, 'downloaded')))
-        print("------------------")
-        print("------------------")
-        print("------------------")
-        print("------------------")
         model_path = os.path.join(settings.MEDIA_ROOT, 'downloaded', 'patent_non_stops_top100.zh.model') 
         # model_path = os.path.join(settings.MEDIA_ROOT, 'downloaded', 'patent_non_stops_top50.zh.model') 
         # model_path = os.path.join(settings.MEDIA_ROOT, 'downloaded', 'patent_non_stops_top20.zh.model') 
         model = Word2Vec.load(model_path)
-        print("patent_non_stops_top100")
     except:
         model_path = os.path.join(settings.MEDIA_ROOT, 'patent_non_stops_top20.zh.model') 
         model = Word2Vec.load(model_path)
-        print("patent_non_stops_top20")
     return model
+
+
+def retrieve_titles(terms, next):
+    model = download_gensim_model()
+    title_vector = np.zeros((400,))
+    for t in terms:
+        if t in model.wv.vocab:
+            title_vector += model.wv[t]
+
+    if np.array_equal(title_vector, np.zeros((400,))):
+        relevant_titles = []
+    else:
+        title_vectors = np.load(os.path.join(settings.MEDIA_ROOT, 'downloaded', 'title_vectors.npy'))
+        scores = cosine_similarity(np.array(title_vector).reshape(1, -1), title_vectors)[0]
+        retrieved = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[next:next+50]
+        relevant_titles = []
+        for i in retrieved:
+            relevant_titles.append(db.patent.find({'_id':i})[0])
+    return relevant_titles
+
 
 def index(request):
     return render(request, "extender/index.html", context=None)
 
 @csrf_exempt
-def search(request, term="測試"):
-    if request.method == "GET":
+def search_relevant_terms(request, term="測試"):
+    if request.method == "GET":  # deal with only one word
         model = download_gensim_model()
         return_terms = dict(model.most_similar(positive=term.strip()))
         return JsonResponse(return_terms) 
@@ -60,6 +83,26 @@ def search(request, term="測試"):
             related_terms.append('很抱歉，您檢索的關鍵字並未在過去的專利文件中出現過!')
 
         return JsonResponse({"related_terms":list(set(related_terms))}) 
+
+@csrf_exempt
+def search_relevant_titles(request, title="", next=0):
+    if request.method == "GET": # deal with only title
+        terms = jieba.cut(title, cut_all=True)
+        relevant_titles = retrieve_titles(terms, next)
+
+    if request.method == "POST":
+        data = request.POST
+        terms = np.hstack(np.array([line.split(',') for line in data['terms_str'].split('\n')]))
+        print(terms)
+        relevant_titles = retrieve_titles(terms, next)
+
+    response_dict = {
+        "data":relevant_titles
+    }
+
+    return JsonResponse(response_dict) 
+
+
 
 
 def visualize(request):
