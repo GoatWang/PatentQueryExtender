@@ -17,3 +17,6 @@ pwd.json
 
 !.elasticbeanstalk/*.global.yml
 
+.ebextensions/02_packages.config
+.ebextensions/03_scipy.config
+

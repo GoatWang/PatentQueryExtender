@@ -193,7 +193,7 @@
 
 
             $("#retrieval_result_title_div").html("")
-            $("#retrieval_result_title_div").append($("<h4>").text("標題檢索結果"))
+            $("#retrieval_result_title_div").append($("<h3>").text("標題檢索結果"))
 
 
             $table = $("<table>").addClass("table").addClass("table-striped")
@@ -216,10 +216,10 @@
               }
               $tr.append($("<th>").text(idx.toString()).attr('scope', 'row'))
               //$tr.append($("<td>").append($("<a>").attr("target", "_blank").attr('href', 'http://twpat6.tipo.gov.tw/tipotwoc/tipotwkm?!!FR_'+title_dict.publication_reference_doc_number).text(name)))
-              $tr.append($("<td>").text(name))
+              $tr.append($("<td>").text(name).css("white-space", "pre-wrap").css(" word-wrap", "break-word"))
               $tr.append($("<td>").append($("<a>").attr("target", "_blank").attr('href', 'http://twpat6.tipo.gov.tw/tipotwoc/tipotwkm?!!FR_'+title_dict.publication_reference_doc_number).text(title_dict.publication_reference_doc_number)))
               //$tr.append($("<td>").text(title_dict.publication_reference_doc_number))
-              $tr.append($("<td>").text(title_dict.publication_reference_date))
+              $tr.append($("<td>").text(title_dict.publication_reference_date).css("min-width", "125px"))
               $tr.append($("<td>").text(title_dict.application_reference_doc_number))
               $tbody.append($tr)
               $table.append($tbody)
