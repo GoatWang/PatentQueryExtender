@@ -36,6 +36,19 @@
       .term_btn{
         margin: 2px 2px 2px 2px;
       }
+
+      .extended_keyword_btn{
+        /* color:red; */
+      }
+
+      .name_td{
+        white-space:pre-wrap;
+        word-wrap:break-word;
+      }
+
+      .date_td{
+        min-width:125px;
+      }
     </style>
   </head>
 
@@ -126,9 +139,6 @@
     
       </div>
 
-
-
-
       
       <div class="offset-md-1 col-md-10 offset-md-1">
         <hr class="mb-4">
@@ -174,10 +184,11 @@
             related_terms = data.related_terms
             btn_clss = ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"]
             $(related_terms).each(function(idx, term){
+              console.log(idx, term)
   //            $btn = $('<button type="button" class="term_btn btn btn-sm btn-' + btn_clss[idx%8] + '">' + term + '</button>')
               //$btn = $('<button type="button" class="term_btn btn btn-sm btn-light">' + term + '</button>')
               $btn = $("#clonable_btn").clone()
-              $btn.text(term)
+              $btn.text(term).addClass("extended_keyword_btn")
               $btn.removeAttr('hidden')
               $btn.click(term_btn_click)
               $("#term_btns_div").append($btn)
@@ -206,7 +217,7 @@
 
             $table = $("<table>").addClass("table").addClass("table-striped")
             $thead = $("<thead>")
-              $tr = $("<tr>")
+            $tr = $("<tr>")
             $(["#", "名稱", "專利編號", "公告/公開日", "申請號"]).each(function(idx, header){
               $tr.append($("<th>").text(header).attr('scope', 'col'))
             })
@@ -214,6 +225,7 @@
             $table.append($thead)
 
             $tbody = $("<tbody>")
+            console.log(data.data)
             $(data.data).each(function(idx, title_dict){
               $tr = $("<tr>")
               name = ""
@@ -224,10 +236,10 @@
               }
               $tr.append($("<th>").text(idx.toString()).attr('scope', 'row'))
               //$tr.append($("<td>").append($("<a>").attr("target", "_blank").attr('href', 'http://twpat6.tipo.gov.tw/tipotwoc/tipotwkm?!!FR_'+title_dict.publication_reference_doc_number).text(name)))
-              $tr.append($("<td>").text(name).css("white-space", "pre-wrap").css(" word-wrap", "break-word"))
+              $tr.append($("<td>").text(name).addClass("name_td"))
               $tr.append($("<td>").append($("<a>").attr("target", "_blank").attr('href', 'http://twpat6.tipo.gov.tw/tipotwoc/tipotwkm?!!FR_'+title_dict.publication_reference_doc_number).text(title_dict.publication_reference_doc_number)))
               //$tr.append($("<td>").text(title_dict.publication_reference_doc_number))
-              $tr.append($("<td>").text(title_dict.publication_reference_date).css("min-width", "125px"))
+              $tr.append($("<td>").text(title_dict.publication_reference_date).addClass("date_td"))
               $tr.append($("<td>").text(title_dict.application_reference_doc_number))
               $tbody.append($tr)
               $table.append($tbody)
