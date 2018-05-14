@@ -35,11 +35,6 @@ try:
 except:
     print('download fail!')
 
-print(os.listdir(os.path.join(MEDIA_ROOT, 'downloaded')))
-print(os.listdir(os.path.join(MEDIA_ROOT, 'downloaded')))
-print(os.listdir(os.path.join(MEDIA_ROOT, 'downloaded')))
-print(os.listdir(os.path.join(MEDIA_ROOT, 'downloaded')))
-
 # from subprocess import call
 # call(["gunicorn", "patent_query_extedter.wsgi"])
 
