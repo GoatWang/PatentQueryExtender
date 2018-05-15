@@ -23,15 +23,17 @@ if 'downloaded' not in os.listdir(MEDIA_ROOT):
 file_names = ["patent_non_stops_top191.zh.model", "patent_non_stops_top191.zh.model.syn1neg.npy", "patent_non_stops_top191.zh.model.wv.syn0.npy", "title_vectors_top191.npy"]
 # file_names = ["patent_non_stops_top50.zh.model", "patent_non_stops_top50.zh.model.syn1neg.npy", "patent_non_stops_top50.zh.model.wv.syn0.npy"]
 # file_names = ["patent_non_stops_top20.zh.model", "patent_non_stops_top20.zh.model.syn1neg.npy", "patent_non_stops_top20.zh.model.wv.syn0.npy"]
+
+# file_names = ["patent_comprehensive_non_stops_top189.zh.model", "patent_comprehensive_non_stops_top189.zh.model.trainables.syn1neg.npy", "patent_comprehensive_non_stops_top189.zh.model.wv.vectors.npy", "title_vectors_top191.npy"]
+
 try:
     for n in file_names:
         if n not in os.listdir(os.path.join(MEDIA_ROOT, 'downloaded')): 
             s3 = boto3.resource('s3')
             s3.meta.client.download_file(S3_BUCKET, "patent/" + n, os.path.join(MEDIA_ROOT, 'downloaded', n))
-    print("download success!")
+        print(n, "download success!")
 except:
     print('download fail!')
-
 
 # from subprocess import call
 # call(["gunicorn", "patent_query_extedter.wsgi"])
