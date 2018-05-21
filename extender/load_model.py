@@ -7,8 +7,8 @@ import numpy as np
 def download_gensim_model():
     # model_path = os.path.join(settings.MEDIA_ROOT, 'downloaded', 'patent_non_stops_top50.zh.model') 
     try:
-        # model_path = os.path.join(settings.MEDIA_ROOT, 'downloaded', 'patent_comprehensive_non_stops_top189.zh.model') 
         model_path = os.path.join(settings.MEDIA_ROOT, 'downloaded', 'patent_non_stops_top191.zh.model')
+        # model_path = os.path.join(settings.MEDIA_ROOT, 'downloaded', 'patent_comprehensive_non_stops_top189.zh.model') 
  
         # model_path = os.path.join(settings.MEDIA_ROOT, 'downloaded', 'patent_non_stops_top100.zh.model') 
         # model_path = os.path.join(settings.MEDIA_ROOT, 'downloaded', 'patent_non_stops_top50.zh.model') 
@@ -26,4 +26,4 @@ word2vec_model.most_similar(positive="test")
 
 # title_vectors
 title_vectors = np.load(os.path.join(settings.MEDIA_ROOT, 'downloaded', 'title_vectors_top191.npy'))
-
+# title_vectors = np.load(os.path.join(settings.MEDIA_ROOT, 'downloaded', 'title_vectors_comprehensive_top189.npy'))
