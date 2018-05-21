@@ -289,7 +289,7 @@
               }else{
                 name = title_dict.chinese_title
               }
-              $tr.append($("<th>").text(idx.toString()).attr('scope', 'row'))
+              $tr.append($("<th>").text((idx + 1).toString()).attr('scope', 'row'))
               //$tr.append($("<td>").append($("<a>").attr("target", "_blank").attr('href', 'http://twpat6.tipo.gov.tw/tipotwoc/tipotwkm?!!FR_'+title_dict.publication_reference_doc_number).text(name)))
               $tr.append($("<td>").text(name).addClass("name_td"))
               $tr.append($("<td>").append($("<a>").attr("target", "_blank").attr('href', 'http://twpat6.tipo.gov.tw/tipotwoc/tipotwkm?!!FR_'+title_dict.publication_reference_doc_number).text(title_dict.publication_reference_doc_number)))
