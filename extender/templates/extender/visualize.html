@@ -42,7 +42,7 @@ svg {
     var svg_width = parseInt(svg.style("width"));
     var svg_height = parseInt(svg.style("height"));
     var padding = 0;  // Padding around canvas, i.e. replaces the 0 of scale
-
+            
     var gdots =  svg.selectAll("g.dot")
     .data(vectors)
     .enter().append('g');

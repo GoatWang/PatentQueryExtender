@@ -3,6 +3,7 @@
 <!-- saved from url=(0052)https://getbootstrap.com/docs/4.1/examples/checkout/ -->
 <html lang="en">
   <head>
+    
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-101626873-4"></script>
     <script>
@@ -15,19 +16,44 @@
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.8, shrink-to-fit=no">
+    <meta name="description" content="Patent QueryExtender builds a machine that re-imagining patent search. Our automated keyword extender helps startups and companies focus on the RD plan with a surprising degree of accuracy.">
+    <meta name="keywords" content="patent,patent serch,patent analysis,patent in Chinese">
+    <meta name="author" content="Goat Wang, Dustin Tsai">
     <!-- <link rel="icon" href="https://getbootstrap.com/favicon.ico"> -->
 
     <title>專利關鍵字延伸器</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="{% static "extender/example.jpg" %}" crossorigin="anonymous"> -->
+    <!-- <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"> -->
+    <link rel="icon" href="{% static "extender/images/favicon.ico" %}" type="image/x-icon">
+
     <style>
-      textarea{
+      @font-face {
+        font-family: 'msjhl';
+        src: url('{% static "extender/font/微软正黑体.ttf" %}');
+      }
+  
+      body{
+        font-family:"msjhl";
+      }
+
+      #background_div{
+        background-image:url('{% static "extender/images/banner2.5.jpg" %}');
+        background-repeat: no-repeat fixed;
+        background-color:black;
+        background-size: cover;
+        width:100%;
+      }
+      
+      
+      #keywords_textarea{
         height:120px;
         width:100%;
+        background-color:rgba(207, 207, 207, 0.5);
+        border-style:none; 
+        color:rgb(46, 46, 46);
       }
 
       #extend_btn{
@@ -37,10 +63,12 @@
 
       .term_btn{
         margin: 2px 2px 2px 2px;
+        font-family:"msjhl";
       }
 
       .extended_keyword_btn{
-        /* color:red; */
+        background-color:rgba(255, 255, 255, 0.438);
+        border:none;
       }
 
       .name_td{
@@ -51,104 +79,129 @@
       .date_td{
         min-width:125px;
       }
+
+      h1, h3{
+        color:rgb(25, 171, 190);
+      }
+
+      h4{
+        color: black;
+        font-weight: bold;
+      }
+
+      .desc_p{
+        color:snow;
+      }
+
+      #footer_p{
+        color:rgb(0, 0, 0);
+        font-size: small;
+      }
+
     </style>
   </head>
+  <body>
+    <section id="background_div">
+      <div class="inner">
 
-  <body class="bg-light">
-    <div class="container">
-      <div class="py-5 text-center">
-        <!-- <img class="d-block mx-auto mb-4" src="./index_files/bootstrap-solid.svg" alt="" width="72" height="72"> -->
-        <h2>專利關鍵字延伸器</h2>
-        <p class="lead">尋找關鍵字，不再是你心中的痛！</p>
-      </div>
-
-      <div class="row">
-        <!-- <div class="col-md-4 order-md-2 mb-4">
-          <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-muted">Your cart</span>
-            <span class="badge badge-secondary badge-pill">3</span>
-          </h4>
-          <ul class="list-group mb-3">
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <h6 class="my-0">Product name</h6>
-                <small class="text-muted">Brief description</small>
-              </div>
-              <span class="text-muted">$12</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <h6 class="my-0">Second product</h6>
-                <small class="text-muted">Brief description</small>
-              </div>
-              <span class="text-muted">$8</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <h6 class="my-0">Third item</h6>
-                <small class="text-muted">Brief description</small>
-              </div>
-              <span class="text-muted">$5</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between bg-light">
-              <div class="text-success">
-                <h6 class="my-0">Promo code</h6>
-                <small>EXAMPLECODE</small>
-              </div>
-              <span class="text-success">-$5</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between">
-              <span>Total (USD)</span>
-              <strong>$20</strong>
-            </li>
-          </ul>
-
-          <form class="card p-2">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Promo code">
-              <div class="input-group-append">
-                <button type="submit" class="btn btn-secondary">Redeem</button>
-              </div>
-            </div>
-          </form>
-        </div> -->
-        <div class="offset-md-1 col-md-5">
-          <h4 class="mb-3">關鍵字</h4>
-          <p>一行延伸一組(10個字)，行內用逗號分隔</p>
-          <form class="needs-validation" novalidate="">
-            <textarea type="text" class="form-control" id="keywords_textarea"></textarea>
-            <button id="extend_btn" class="btn btn-sm btn-primary">延伸關鍵字</a>
-          </form>
+        <div class="py-5 text-center">
+          <!-- <img class="d-block mx-auto mb-4" src="./index_files/bootstrap-solid.svg" alt="" width="72" height="72"> -->
+          <h1><b>專利關鍵字延伸器</b></h1>
+          <p class="desc_p">運用 AI 機器學習技術 Query Reformulation (QRE) Method 有效將檢索精確度與效率同時提升<br>尋找關鍵字不再是心中的痛！</p>
         </div>
-        <div class="col-md-5">
-          <h4>延伸關鍵字</h4>
-          <p>點擊以新增左側查詢關鍵字</p>          
-          <div id="term_btns_div">
-            <button id="clonable_btn" type="button" class="term_btn btn btn-sm btn-light" hidden="hidden"></button>
+
+        <div class="row">
+          <!-- <div class="col-md-4 order-md-2 mb-4">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-muted">Your cart</span>
+              <span class="badge badge-secondary badge-pill">3</span>
+            </h4>
+            <ul class="list-group mb-3">
+              <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <div>
+                  <h6 class="my-0">Product name</h6>
+                  <small class="text-muted">Brief description</small>
+                </div>
+                <span class="text-muted">$12</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <div>
+                  <h6 class="my-0">Second product</h6>
+                  <small class="text-muted">Brief description</small>
+                </div>
+                <span class="text-muted">$8</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <div>
+                  <h6 class="my-0">Third item</h6>
+                  <small class="text-muted">Brief description</small>
+                </div>
+                <span class="text-muted">$5</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between bg-light">
+                <div class="text-success">
+                  <h6 class="my-0">Promo code</h6>
+                  <small>EXAMPLECODE</small>
+                </div>
+                <span class="text-success">-$5</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Total (USD)</span>
+                <strong>$20</strong>
+              </li>
+            </ul>
+
+            <form class="card p-2">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Promo code">
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-secondary">Redeem</button>
+                </div>
+              </div>
+            </form>
+          </div> -->
+          <div class="offset-md-1 col-md-5">
+            <h3 class="mb-3"><b>1. 輸入關鍵字</b></h3>
+            <p class="desc_p">一橫列產生一組延伸關鍵字, 兩詞彙以上以逗號( , )分隔<br>輸入完成請點擊右下方 "延伸關鍵字"</p>
+            <form class="needs-validation" novalidate="">
+              <textarea type="text" class="form-control" id="keywords_textarea" input type="text"></textarea>
+              <button id="extend_btn" class="btn btn-sm btn-outline-warning">延伸關鍵字</a>
+            </form>
+          </div>
+          <div class="col-md-5">
+            <h3 class="mb-3"><b>2. 延伸關鍵字</b></h3>
+            <p class="desc_p">待延伸關鍵字產生於下方, 點擊其新增至左側欄位以進一步查詢<br><br></p>          
+            <div id="term_btns_div">
+              <button id="clonable_btn" type="button" class="term_btn btn btn-sm btn-light" hidden="hidden"></button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="offset-md-1 col-md-10 offset-md-1">
-        <hr class="mb-4">
-        <button id="retrieve_relevant_titles_btn" class="btn btn-primary btn-lg btn-block">檢索相關專利標題</a>
-      </div>
+        <div class="offset-md-1 col-md-10 offset-md-1">
+          <hr class="mb-4">
+          <button id="retrieve_relevant_titles_btn" class="btn btn-outline-info btn-lg btn-block">檢索相關專利標題</a>
+          
+      
+      </div><br><br>
+    </section>
+
 
       <div id="retrieval_result_title_div" class="py-5 text-center">
 
       </div>
-      <div class="col-md-12" id='tiles_table_div'>
+      
+      <div class="col-md-12" id='titles_table_div'>
     
       </div>
 
       
       <div class="offset-md-1 col-md-10 offset-md-1">
         <hr class="mb-4">
-        <button id="redirect_to_patent_retrieval_sys_btn" class="btn btn-primary btn-lg btn-block">至「中華民國專利資訊檢索系統」檢索</a>
+        <button id="redirect_to_patent_retrieval_sys_btn" class="btn btn-info btn-lg btn-block">至「中華民國專利資訊檢索系統」檢索其它專利</a>
       </div>
 
       <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">© 2017-2018 QueryExtender</p>
+        <p id='footer_p' class="mb-1">© 2018 Patent QueryExtender | All rights reserved.</p>
         <!-- <ul class="list-inline">
           <li class="list-inline-item"><a href="https://getbootstrap.com/docs/4.1/examples/checkout/#">Privacy</a></li>
           <li class="list-inline-item"><a href="https://getbootstrap.com/docs/4.1/examples/checkout/#">Terms</a></li>
@@ -214,13 +267,13 @@
             $("body").css("cursor", "default");            
 
             $("#retrieval_result_title_div").html("")
-            $("#retrieval_result_title_div").append($("<h3>").text("標題檢索結果"))
+            $("#retrieval_result_title_div").append($("<h4>").text("標題檢索結果"))
 
 
-            $table = $("<table>").addClass("table").addClass("table-striped")
+            $table = $("<table>").addClass("table").addClass("table-hover")
             $thead = $("<thead>")
             $tr = $("<tr>")
-            $(["#", "名稱", "專利編號", "公告/公開日", "申請號"]).each(function(idx, header){
+            $(["#", "專利名稱", "專利編號", "公告/公開日", "申請號"]).each(function(idx, header){
               $tr.append($("<th>").text(header).attr('scope', 'col'))
             })
             $thead.append($tr)
@@ -246,8 +299,8 @@
               $tbody.append($tr)
               $table.append($tbody)
 
-              $("#tiles_table_div").html('')              
-              $("#tiles_table_div").append($table)
+              $("#titles_table_div").html('')              
+              $("#titles_table_div").append($table)
             })
           }
           $.ajax({type: 'POST', url: url, data: post_data, dataType: 'json', success: callback });
@@ -258,7 +311,7 @@
 
       
       
-      var placeholder = '細胞,組織,白血球\n化學,PVC\n靈芝,幹細胞';
+      var placeholder = '細胞,組織,白血球\n化學,PVC';
       $('#keywords_textarea').val(placeholder);
       $('#keywords_textarea').focus(function() {
           if ($(this).val() == placeholder) {
